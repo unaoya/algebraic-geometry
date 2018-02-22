@@ -1,0 +1,134 @@
+\documentclass{jsarticle}
+\setlength{\textwidth}{\fullwidth}
+\setlength{\evensidemargin}{\oddsidemargin}
+\RequirePackage{amsmath,amssymb,amsthm, amscd, comment, multicol}
+\usepackage[all]{xy}
+\input{../tex/theorems}
+\input{../tex/symbols}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{intersections, calc}
+\title{Serre duality}
+\author{@unaoya}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+参考文献はHartshorne
+
+\section{Sheaf}
+
+\section{Cohomology}
+ここではコホモロジーの定義と、いくつかの性質を示す。
+
+$F:C \to D$が適当な条件を満たす（左完全とか）アーベル圏の間の関手とする。
+これに対して以下の条件を満たす関手$R^iF:C \to D$を定める。
+
+$M \to I^\bullet$がinjective resolutionであれば$R^iFM = H^i(F(I^\bullet))$となる。
+
+acyclic resolutionによる計算。
+$A$がacyclicとは$R^iFA=0$となること。
+$M \to A^\bullet$をacyclic resolutionとすると、$R^iFM = H^i(F(A^\bullet))$となる。
+
+
+\section{Sheaf cohomology}
+\begin{lem}
+環付き空間$(X, O_X)$上の$O_X$-mod $F$がflasqueなら$\Gamma$-acyclicである。
+\end{lem}
+\begin{proof}
+まず$O_X$-mod $I$がinjectiveならflasqueであることを示す。
+$I(U) = Hom(O_X\vert_U, I\vert_U) = Hom(j_!(O_X\vert_U),I)$が$V \subset U$について関手的に成り立ち、
+$(j_V)_!(O_X\vert_V) \to (j_U)_!(O_X\vert_U)$が単射であり$I$がinjectiveだからこれは全射。
+
+$F$をinjective $I$に埋め込み、そのcokernelを$G$とする。
+$F, I$がflasqueであることから$G$もflasqueである。
+
+$0 \to F \to I \to G \to 0$の長完全列を考える。
+$F$がflasqueなので$0 \to H^0(X, F) \to H^0(X,I) \to H^0(X,G) \to 0$が完全であり、$H^1(X, F)=0$となる。
+$I$についてのコホモロジーが消えることに注意すると次数に関する帰納法から$H^i(X,F)=0$が言える。
+\end{proof}
+
+
+\section{Affine schemeのcohomology}
+この節ではaffine schemeのcohomologyが消えることを証明する。
+Noetherでない場合は？
+\begin{thm}
+$A$をNoether環、$M$を$A$-moduleとする。
+$X =\Spec A$と$O_X$-mod $\cF=\tilde{M}$について、$i>0$に対し$H^i(X,\cF)=0$
+\end{thm}
+
+$0\to M \to I^\bullet$をinjective resolutionとする。
+これに対し$0 \to \tilde{M} \to \tilde{I}^\bullet$がflasque resolutionになることを示す。
+
+\begin{lem}
+$I$がinjective $A$-modであるとき$\tilde{I}$はflasque $O_X$-mod
+\end{lem}
+\begin{proof}
+まず
+\begin{lem}
+$A$がnoetherで$I$がinjectiveならば$I \to I_f$が全射である。
+\end{lem}
+を示す。
+\begin{proof}
+$x \in I_f$は$y \in I, n>0$を用いて$x=\dfrac{y}{f^n}$とかける。
+$y=f^nz$とできればよい。
+
+$(f^n) \subset A$について$(f^n) \to I$を$af^n \mapsto ay$と定めると、
+$I$がinjectiveなので$A \to I$が定まり、$1$の像が$x$になる。
+
+この写像が定義できるかはわからないが、$A$がNoetherより$f^r$のannihilator $b_r$を考えると
+\end{proof}
+
+$Y=\overline{Supp(\tilde{I})}$とする。
+$Y$についてのNoetherian inductionにより証明する。
+
+まず$Y$がclosed point $1$点からなる場合、$\tilde{I}$はskyscraper sheafなのでflasqueである。
+
+open $U \subset X$に対して$\Gamma(X, \tilde{I}) \to \Gamma(U, \tilde{I})$が全射であることを証明する。
+$D(f) \subset U$となるような$f$をとる。
+このとき、上の補題から$\Gamma(X, \tilde{I})=I \to \Gamma(U,\tilde{I}) \to \Gamma(D(f), \tilde{I})=I_f$は全射。
+
+$Z=X-D(f)$とし、$\Gamma_Z(X, \tilde{I}) \to \Gamma_Z(U, \tilde{I})$を考える。
+$J=\Gamma_a(I)$にたいし$\Gamma_Z(U, \tilde{I})=\Gamma(U, \tilde{J})$である。
+実際、$\Gamma_a(I)=\Gamma(X, \cH_Z^0(\cF))$であり、
+$0 \to \cH^0_Z(\cF) \to \cF \to j_*(\cF\vert_U)$が完全だから$\cH^0_Z(\cF)$はq-cohなのでよい。
+
+ここで$J$がinjectiveであれば、$Z$について帰納法の仮定からこの射が全射である。
+$J$がinjectiveであることは次のように示せる。
+イデアル$b \to A$からの射$\phi:b \to J$が$A \to J$に伸びればよい。
+$A$がNoetherなのである$n>0$があって$a^n\phi(b)=0$である。
+よってKrullの定理からある$n'$があって$a^{n'}\cap b \subset a^nb$となる。
+
+$I$がinjectiveだから$b/(b \cap a^n) \to J \to I$は$A/a^{n'} \to I$に伸び、$J$の定義から$A/a^{n'} \to J$を定める。
+
+このことから前の全射が言える。
+\end{proof}
+
+flasqueなら$\Gamma$-acyclicなので、cohomologyが計算できる。
+
+\section{Projective spaceのcohomology}
+$S$をgraded ringとし$M$をgraded $S$-modとする。
+$M(i)$を$M$の次数シフト、つまり$M(i)_d=M_{i+d}$で定まるgraded $S$-modとする。
+
+$\Proj X$上の$O_X$-mod $\tilde{M}$を$\tilde{M}\vert_{D_+(f)}=\tilde{(M_{(f)})}$で定まる層とする。
+とくに$\tilde{S(n)}=O_X(n)$とかく。
+
+$P^n$の$O(d)$のcohomology $H^i(P^n, O(d))$を計算する。
+次元$n$と次数$d, i$について帰納的に。
+完全列$0 \to F(-1) \to F \to F\vert_H \to 0$を使う。
+
+Cech cohomologyで計算する。
+
+$X=P^1$について直接計算してみる。
+$X=U_0 \cup U_1, U_0=D_+(x_0), U_1=D_+(x_1)$とaffine openで被覆する。
+これに対してCech複体は$0 \to \Gamma(U_0, \cF) \times \Gamma(U_1, \cF) \to \Gamma(U_0\cap U_1, \cF)\to 0$である。
+これのcohomologyを計算する。
+
+\section{Serre duality}
+adeleでの記述、相互法則、留数定理
+
+\section{Riemann-Roch}
+\end{document}
