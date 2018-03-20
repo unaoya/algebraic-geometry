@@ -130,5 +130,115 @@ $X=U_0 \cup U_1, U_0=D_+(x_0), U_1=D_+(x_1)$とaffine openで被覆する。
 \section{Serre duality}
 adeleでの記述、相互法則、留数定理
 
+residueによりdualityが与えられること。
+$(\omega,\theta)$がdualizing pairとは、$\omega$がcoherent $O_V$-modで$\theta:H^1(V,\omega) \to k$であり、
+任意のcoherent $O_V$-mod $F$に対して
+
+\begin{align*}
+Hom(F,\omega)\to Hom(H^1(V,F),H^1(V,\omega))\to Hom(H^1(V,F),k)
+\end{align*}
+が同型になること。
+
+特に$F=L$が可逆層のとき、$H^0(L^{-1}\otimes\Omega)\cong H^1(L)^\vee$を定める。
+$(\Omega_{V/k}, \int_V)$がdualizing pairであることを証明する。
+
 \section{Riemann-Roch}
+
+\section{residue}
+Tateの論文
+JOHN TATE, Residues of differentials on curves
+\begin{dfn}
+$V$を$k$ベクトル空間とし、$A, B$をその部分空間とする。
+$A<B$とは$A+B/B$が有限次元であること、$A\sim B$とは$A<B$かつ$B<A$であること。
+
+$A\subset V$に対し、$E, E_0, E_1, E_2\subset End(V)$を
+\begin{enumerate}
+\item $\theta\in E$は$\theta A<A$
+\item $\theta\in E_1$は$\theta V<A$
+\item $\theta\in E_2$は$\theta A<0$
+\item $E_0=E_1\cap E_2$
+\end{enumerate}
+として定義する。
+\end{dfn}
+
+\begin{dfn}[trace]
+$k$線形写像$\theta:V \to V$がfinite potentとはある$n$が存在して$\theta^nV$が有限次元であること。
+このとき、$Tr_V\theta$を以下のように定義する。
+\begin{enumerate}
+\item $V$が有限次元の場合には、通常のtraceとする。
+\item $W\subset V, \theta W\subset W$の時には$Tr_V\theta=Tr_W\theta+Tr_{V/W}\theta$とする。
+\item $\theta$がnilpotentなら$Tr\theta=0$とする。
+\end{enumerate}
+$\theta$がfinite potentのとき、$W=\theta^nV$とすると$Tr_W\theta$は定義可能で、$Tr_{V/W}=0$となるから、これで定義できる。
+$n$に依存せず決まるか？
+\end{dfn}
+
+\begin{thm}[definition of residue]
+$res^V_A:\Omega^1_{K/k}\to k$で以下を満たすものが唯一存在する。
+$f,g\in K$に対し、$f=f_1\mod E_2, g_1=g\mod E_2$であり、$f_1\in E_1$または$g_1\in E_1$なるものに対し、
+$res^V_A(fdg)=Tr_V([f_1,g_1])$が成り立つ
+\end{thm}
+
+\section{Poisson和公式}
+Serreの本、TateのSerre duality for non-closed $k$、Ramacrishnaの本
+
+$k=\F_q$とし、$X/k$をsmooth projective curveとし$\A$を$X$のアデールとする。
+$\psi:k(X)\backslash \A \to \C^\times$を固定することで、位相群としての双対
+\begin{align*}
+\A \to \hat{\A}; a\mapsto(x\mapsto\psi(ax)
+\end{align*}
+が定まる。
+
+この$\psi$の構成に$X$上の$1$-form $\omega$を用いる。
+$\mu$を$\A$のHaar measureとする。
+
+\begin{prop}
+$f\in L^1(\A)$かつ$\hat{f}\in L^1(\hat{\A})$とする。
+このとき、ある$c\in\R^\times$があって$\hat{\hat{f}}=cf$となる。
+\end{prop}
+$f=1_U, U=\prod_xO_x$とすると、$c=\mu(c)\mu(D), D=\psi^{-1}(1)$となる。この$D$をconductorという。
+
+\begin{thm}[Poisson和公式]
+$f\in L^1(\A)$であって$\sum_{\xi\in k(X)}\abs{f(x+\xi)}$が広義一様収束するとする。
+$\sum_{\xi\in k(X)}\abs{\hat{f}(\xi)}$が収束するなら
+\begin{align*}
+\sum_{\xi\in k(X)}f(\xi)=\sum_{\xi\in k(X)}\hat{f}(\xi)
+\end{align*}
+\end{thm}
+
+$\psi$に対して$n_x\in\Z$を$\psi_x(p_x^{n_x})=1$かつ$\psi_x(p_x^{n_x-1})\neq1$なるものとし、
+\begin{align*}
+(\psi)=\sum_{x\in X}-n_x[x]
+\end{align*}
+と定める。これは$\psi$の取り方によらず定まる。
+
+$f=\otimes 1_{O_x}$とする。
+$X$のdivisor $D$に対して$x(D)\in\A$を$v_x(x(D)_x)=n_x(D)$となるものとして定め、
+$h(y)=f(yx)$に対してPoisson和公式を使うと
+\begin{align*}
+\sum h(y)=\sum\hat{h}(y)
+\end{align*}
+となる。
+\begin{align*}
+\sum h(y)=\sum f(xy)=\sum_{y\in k(X), v_x(xy)\geq0} 1=q^{l(D)}
+\end{align*}
+となり、
+\begin{align*}
+\sum\hat{h}(y)=\sum\int_{\A}f(zx)\psi(yz)dx\\
+=\sum\frac{1}{\abs{x}}\int_{\A}f(z)\psi(yzx^{-1})dz\\
+=\sum_y\frac{1}{\abs{x}}\hat{f}(yx^{-1})\\
+=q^{\deg(x)v_x(\psi)/2}
+\end{align*}
+となる。
+このことからRRが証明できる。
+ここでcountingの代わりにmotivicでやれば一般の$k$で同様にRRができる？LoeserとかHrushovskiとか？
+
+$\A$の双対性を$\omega$を用いて証明する。（代数隊の場合は？）
+$X=\P^1$の場合について構成すれば、一般には$Y/X$のtraceを用いて証明できる。
+
+\begin{align*}
+\Omega_{\F_q(t)/\F_q}\to(\A_{\F_q(t)}/\F_q(t))^{\wedge}\\
+\omega\mapsto((r_x)\mapsto\sum_x\res(r_x\omega))
+\end{align*}
+ここで$\res_x(\sum_ia_i\pi^id\pi)=Tr_{k(x)/k}(a_{-1})$により定める。
 \end{document}
