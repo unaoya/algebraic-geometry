@@ -1,0 +1,697 @@
+\documentclass{jsarticle}
+
+\RequirePackage{amsmath,amssymb,amsthm, amscd, comment}
+\input{../tex/theorems}
+\input{../tex/symbols}
+\title{変形理論}
+\author{@unaoya}
+\date{\today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\section{加群の拡大}
+$A$を可換環とする。
+\begin{dfn}
+$A$加群$M$とは、アーベル群$M$への$A$の作用が定まっているもの。
+ここで$A$の作用とは、各$a\in A$について$a$倍写像という群準同型$a:M \to M$が定まっていて、
+\begin{enumerate}
+\item $(a+b)m=am+bm$
+\item $(ab)m=a(bm)$
+\item $1m=m$
+\end{enumerate}
+を満たすもの。
+\end{dfn}
+
+これは環の準同型$A \to \End(M)$を与えるという事である。
+ここで$\End(M)$とは$M$のアーベル群の自己準同型$M \to M$全体の集合に、
+和を$(f+g)(m)=f(m)+g(m)$で、積を射の合成$(fg)(m)=f(g(m))$で与えた環である。
+
+例えば$A=k$が体であれば$k$加群は$k$ベクトル空間のことであり、$A$の作用とはスカラー倍の事である。
+
+\subsection{$k[T]$加群}
+$k$を体とし、$V$を$k$ベクトル空間とする。
+この$V$に一変数多項式環$k[T]$加群の構造を定めよう。
+ただし、ここでは$k[T]$の作用は、
+\begin{enumerate}
+\item $a\in k[T]$倍写像が$k$線形写像
+\item $k\subset k[T]$の作用はもとのスカラー倍
+\end{enumerate}
+をみたすもののみを考えることにする。
+
+これは各々の多項式$f(T)$に対して$k$線形写像$f(T):V \to V$を適切に定めるということ。
+（群$G$の$k$線形表現は、各$g\in G$に対して$g:V \to V$という$k$線形写像が適切に定まっているもので、これと似たことを考えている。）
+
+\begin{lem}
+$k[T]$の$V$への作用は$T$の作用$T:V \to V$のみから決定される。
+\end{lem}
+つまり他の多項式の作用は、加群の定義から$T$の作用により自動的に決まるということ。
+例えば
+\begin{align*}
+(T^2+3T)v=T^2v+3Tv=T(Tv)+3(Tv)
+\end{align*}
+などである。
+結局、$k[T]$加群の構造は$T$の作用である$k$線形写像$T:V \to V$を定めることに他ならない。
+
+$V$を$k$上の有限次元ベクトル空間とする。
+このとき$V$の基底をとって考えると、$T$の作用$T:V \to V$は$k$線形写像なのである行列$A$で表示できる。
+したがって$V$に$k[T]$加群の構造を定めることは、$T$に対応する行列$A$を定めることとと等価である。
+
+\subsection{$k[T]$加群の拡大}
+\begin{dfn}
+$A$加群$M, N$に対し$N$の$M$による$A$加群の拡大とは、$A$加群$E$と以下のような$A$加群の短完全列
+\[
+\begin{CD}
+0 @>>> M @>i>> E @>p>> N @>>> 0\\
+\end{CD}
+\]
+のことをいう。
+\end{dfn}
+
+$V_1, V_2$を$1$次元$k$ベクトル空間とし、そこに$k[T]$加群の構造を定める。
+それぞれ$T$作用を$a_1, a_2$倍で定めることにしよう。
+$1$次元なので、これは実は基底の取り方によらずに決まっている。
+
+\begin{prob}
+$V_1$の$V_2$による$k[T]$加群の拡大
+\[
+\begin{CD}
+0 @>>> V_2 @>i>> V @>p>> V_1 @>>> 0\\
+\end{CD}
+\]
+が全部でどれだけあるか調べよう。
+\end{prob}
+
+
+このとき、これは$k$加群の完全列でもあるから、$V$は$k$上$2$次元の線形空間であり$k$加群としては$V=V_1\oplus V_2$と表せる。
+この直和分解から定まる$V$の基底$e_1, e_2$を固定しよう。
+つまり、$i:V_2 \to V$の像は$ke_2\subset V$であり、$p:ke_1 \to V_1$は同型になるものとする。
+
+$k[T]$加群$V$の$T$倍作用がこの基底$e_2, e_1$について行列$A$で表示されるとしよう。
+$V_2\subset V$は$k[T]$部分加群である、つまり$i:V_2 \to V$が$k[T]$加群の準同型であるから、
+$i(Te_2)=Ti(e_2)=Te_2=a_2e_2$となる。
+よって$i$は単射なので、$Te_2=a_2e_2$となり、
+\begin{align*}
+A=\begin{pmatrix}a&b\\0&a_2\end{pmatrix}
+\end{align*}
+と上三角行列になることがわかる。
+
+さらに$Te_1=ae_1+be_2$とすると、
+$p:V \to V_1$が$k[T]$準同型であるから$p(ae_1+be_2)=p(Te_1)=Tp(e_1)=Te_1=a_1e_1$より、$a=a_1$となることが条件。
+よって
+\begin{align*}
+A=\begin{pmatrix}a_1&b\\0&a_2\end{pmatrix}
+\end{align*}
+としておけば、上の完全列が$k[T]$加群としての完全列である。
+
+逆にこのような行列を用いて$V$に$k[T]$加群の構造を定めることができ、これが拡大を与えることもわかる。
+
+つまり、$V$における$T$倍に対応する行列は上三角行列であり、対角成分が$V_1, V_2$から決定されることがわかる。
+
+\subsection{拡大の同型類}
+\begin{dfn}
+二つの拡大の間の同型とは、$k[T]$加群の同型$\phi:V \to V'$で$V_1, V_2$には恒等写像を誘導するもの。
+つまり、次の図式が可換になるもの。
+\[
+\begin{CD}
+0 @>>> V_2 @>i>> V @>p>> V_1 @>>> 0\\
+@.    @|    @V\phi VV     @|    \\
+0 @>>> V_2 @>i'>> V' @>p'>> V_1 @>>> 0\\
+\end{CD}
+\]
+\end{dfn}
+
+ここでは$V'$は$k$加群としては$V$と一致していて、$k[T]$作用が異なるかもしれないと考える。
+
+\begin{prob}
+$V_1$の$V_2$による拡大$V, V'$に対して、上三角行列$A, A'$が対応することをみた。
+この二つが拡大の同型となるための$A, A'$についての条件を求めよう。
+\end{prob}
+拡大の同型$\phi:V \to V'$は$k$加群の同型でもあり、これを$V, V'$の$k$上の基底$e_1, e_2$に対して行列$P$で表す。
+上の条件は
+\begin{enumerate}
+\item $\phi(e_1)=e_1$
+\item $\phi(e_2)=e_2 \mod V_2$
+\end{enumerate}
+という事なので、
+\begin{align*}
+P=\begin{pmatrix}1&q\\0&1\end{pmatrix}
+\end{align*}
+となる。
+これが$k[T]$加群の同型なので$\phi(Tv)=T\phi(v)$であり、これを$V, V'$での$T$作用をそれぞれ
+\begin{align*}
+A=\begin{pmatrix}a_1&b\\0&a_2\end{pmatrix},~
+A'=\begin{pmatrix}a_1&b'\\0&a_2\end{pmatrix}
+\end{align*}
+と表すとすると、$k[T]$加群の射であるという条件は$PA=A'P$となる。
+
+したがって$P^{-1}AP=A'$であり、
+\begin{align*}
+\begin{pmatrix}1&-q\\0&1\end{pmatrix}\begin{pmatrix}a_1&b\\0&a_2\end{pmatrix}\begin{pmatrix}1&q\\0&1\end{pmatrix}
+&=\begin{pmatrix}a_1&a_1q+b-a_2q\\0&a_2\end{pmatrix}\\
+&=\begin{pmatrix}a_1&b'\\0&a_2\end{pmatrix}
+\end{align*}
+となる。
+
+これを$a_1, a_2$が等しいか否かで場合分けして考える。
+\begin{enumerate}
+\item $a_1=a_2$であれば$a_1q+b-a_2q=b$なので、$q$をどのようにとっても$b'=b$となる。
+つまり$b\neq b'$であれば拡大は同型とならない。
+\item $a_1\neq a_2$のとき、$q=\dfrac{-b}{a_1-a_2}$とすれば$b'=0$となる。つまりこの場合には全ての拡大が同型ということになる。
+\end{enumerate}
+
+$V$の$k[T]$加群としての半単純化は$V_1\oplus (V/V_1)=V_1\oplus V_2$である。
+つまり、上の拡大で与えられる$V$は全て半単純化すると$V_1\oplus V_2$と一致する。
+
+一方、拡大の同型類は
+\begin{enumerate}
+\item $a_1=a_2$のとき、$k$と同じだけあり半単純化すると区別できない
+\item $a_1\neq a_2$のとき、全ての拡大は同型であり半単純化しても変わらない
+\end{enumerate}
+となる。
+\section{$\Ext^1$加群}
+さて、上で見た拡大の分類をホモロジー代数を用いて求める方法を紹介しよう。
+
+\begin{thm}
+$A$を可換環とし、$M, N$を$A$加群とする。
+$N$の$M$による$A$加群の拡大の同型類のなす集合$\Ext^1_A(N,M)$は次の方法で求めることができる。
+\begin{enumerate}
+\item $N$のprojective resolution
+\begin{align*}
+\cdots \to P_2 \to P_1 \to P_0 \to N \to 0
+\end{align*}
+をとる。
+\item 上の$\Hom_A(-,M)$をとり、複体
+\begin{align*}
+0 \to \Hom_A(N,M) \to \Hom_A(P_0,M) \to \Hom_A(P_1,M) \to \Hom_A(P_2,M) \to \cdots
+\end{align*}
+を作る。
+\item 上の複体のコホモロジーをとり、その
+\begin{align*}
+H^1(\Hom_A(P_\bullet,M))=\ker(\Hom_A(P_1,M) \to \Hom_A(P_2,M))/im(\Hom_A(P_0,M) \to \Hom_A(P_1,M))
+\end{align*}
+が$\Ext^1_A(N,M)$となる。
+\end{enumerate}
+\end{thm}
+ここではこの定理の証明をする代わりに前節の例でこの計算をしてみる。
+つまり、$A=k[T], M=V_2, N=V_1$として$\Ext^1_{k[T]}(V_1, V_2)$を計算してみよう。
+
+\subsection{projective resolution}
+\begin{dfn}
+$N$のprojective resolutionとは、完全列$\cdots \to P_2 \to P_1 \to P_0 \to N \to 0$であって、
+各$P_i$がprojective $A$-moduleであるものである。
+\end{dfn}
+projective moduleの定義は説明しないが、自由加群$A^n$はprojective $A$-moduleである。
+
+\begin{prob}
+$k[T]$加群$V_1$のprojective resolutionを作れ。
+\end{prob}
+まず$f\colon P_0=k[T] \to V_1$を$1 \mapsto e_1$とし$k[T]$準同型となるよう定める。
+つまり$f(T)=a_1e_1$である。
+このとき$\ker f=(T-a_1)$となる。
+
+次に$g:P_1=k[T] \to P_0=k[T]$を$1\mapsto T-a_1$とし$k[T]$準同型となるよう定める。
+するとこれは単射であり、像は$(T-a_1)\subset k[T]$と一致する。
+よって
+\[
+\begin{CD}
+0 @>>> P_1 @>g>> P_0 @>f>> V_1 @>>> 0\\
+\end{CD}
+\]
+が$k[T]$加群の完全列となる。
+
+$P_0=P_1=k[T]$はともにrank $1$の自由$k[T]$加群なので、これらはprojective moduleである。
+つまり、これが$V_1$のprojective resolutionを与える。
+
+\subsection{$\Hom_A(-,M)$}
+$A$加群$M$が与えられたとき、$\Hom_A(-,M)$は$A$加群の圏から$A$加群の圏への関手を与える。
+この関手は$A$加群$N$に対して$A$加群$\Hom_A(N,M)$を対応させ、$A$加群の射$f:N \to N'$に対して
+$f^*:\Hom_A(N',M) \to \Hom(N,M); \phi \mapsto \phi\circ f$を対応させるもの。
+
+上で得られたprejective resolutionに関手$\Hom_{k[T]}(-,V_2)$を作用させると
+\[
+\begin{CD}
+0 @>>>  \Hom_{k[T]}(V_1,V_2) @>f^*>> \Hom_{k[T]}(P_0,V_2) @>g^*>> \Hom_{k[T]}(P_1,V_2) @>>> 0\\
+\end{CD}
+\]
+という列が得られるが、これは$k[T]$加群の複体になる。
+
+\begin{prob}
+$g^*:\Hom_{k[T]}(P_0,V_2) \to \Hom_{k[T]}(P_1,V_2)$がどのような写像になるか具体的に計算してみよう。
+\end{prob}
+$\phi:P_0\to V_2\in \Hom_{k[T]}(P_0,V_2)$が与えられたとき、$g^*(\phi)=\phi\circ g\in\Hom_{k[T]}(P_1,V_2)$
+は、
+\begin{align*}
+\phi\circ g(1)=\phi(T-a_1)=(T-a_1)\phi(1)=T\phi(1)-a_1\phi(1)=(a_2-a_1)\phi(1)
+\end{align*}
+となる。
+
+ところで$\Hom_{k[T]}(k[T],V)$の元は$1$の行き先を決めれば決まってしまうので、
+$\Hom_{k[T]}(k[T],V)$は$ev_1:\phi \mapsto \phi(1)$として$V$と同型になる。
+この逆射を$v\mapsto \phi_v$と表す。
+つまり$\phi_v\in \Hom_{k[T]}(k[T],V)$は$\phi_v(a)=av$となるもの。
+
+これを使って上の写像$g^*:\Hom_{k[T]}(P_0,V_2) \to \Hom_{k[T]}(P_1,V_2)$を書き換える。
+つまり次の図式
+\[
+\begin{CD}
+\Hom_{k[T]}(P_1,V_2) @>g^*>>  \Hom_{k[T]}(P_1,V_2)\\
+@Vev_1VV @Vev_1VV\\
+V_2 @>g^*>> V_2
+\end{CD}
+\]
+を可換にする$g^*:V_2 \to V_2$は$v\in V_2$に対して
+\begin{align*}
+g^*(v)=ev_1(g^*(\phi_v))=(\phi_v\circ g)(1)=\phi_v(g(1))=\phi_v(T-a_1)=(T-a_1)v=(a_2-a_1)v
+\end{align*}
+となる。
+
+$V_2$は$k$上$1$次元であり、上の写像は$k$加群の準同型でもあるので、$a_2\neq a_1$の場合上の写像は全射かつ単射であり、$a_2=a_1$の場合には$0$射になる。
+
+\subsection{$\Ext^1_A$}
+上で得られた複体
+\[
+\begin{CD}
+0 @>>> V_2 @>g^*>> V_2 @>>> 0\\
+\end{CD}
+\]
+のcohomologyを計算しよう。
+\begin{enumerate}
+\item $a_1\neq a_2$の場合、射$g^*$は$0$射なので$H^1=\Ext^1(V_1, V_2)=k$となる。
+\item $a_1=a_2$の場合、射$g^*$は同型なので$H^1=\Ext^1(V_1, V_2)=0$となる。
+\end{enumerate}
+
+これは前節の最後に計算した拡大の同型類の分類結果とうまく対応している。
+
+\section{終わりに}
+\begin{enumerate}
+\item $\Ext^1$はprojective resolutionの取り方によらないか？
+\item $\Ext^1$の各元が拡大にどのように対応しているか？
+\item $\Ext^1$の群構造は何か？
+\end{enumerate}
+などの疑問が残るが、それについてはまた改めて。
+
+実はこの方法はより一般的に、アーベル圏の間の右完全関手の左導来関手を計算する方法を与えている。
+これの双対として左完全関手の右導来関手を計算でき、例えば群のコホモロジーを計算できる。
+
+導来関手の定義はしないが、ここでは上の構成で定義しよう。
+injectiveまたはprojective resolutionの取り方に依存しないことは認める。
+
+$\Ext^1(B,A)$は$0\to A\to E \to B\to 0$の同型類のなす群と自然に同型になる。
+拡大から$\Ext^1(B,A)$の元を作るには、$\Hom(-,A)$または$\Hom(B,-)$の長完全列から、
+$\Hom(A,A) \to \Ext^1(B,A)$により$id_A$の像を対応させる、または
+$\Hom(B,B) \to \Ext^1(B,A)$により$id_B$の像を対応させることで得られる。
+
+逆に$\Ext^1(B,A)$の元から拡大を作るには、$B$または$A$のresolutionをとって
+$\to P_1 \to P_0 \to B$から$\Hom(P_0,A) \to \Hom(P_1,A)$が定まり、$\Ext^1(B,A)$の元はこれの$\ker d$で表すことができるから、
+$P_1 \to A$で$P_0 \to A$が$0$になるものを考える。
+これを用いて拡大$A \to E \to B$を$P_1 \to P_0$と$P_1 \to A$のpush $P_0 \oplus_{P_1}A$で定義する。
+$P \to B$と$A \to P$を
+
+$G$加群を考える。
+$M$を$\Lambda[G]$加群として$\Lambda$に$G$を自明に作用させる。
+$\Hom_G(\Lambda,M)=M^G$であるので$\Ext(\Lambda,M)=H(G,M)$となる。
+特に$M=\Lambda$の場合を考えると、
+\begin{align*}
+\begin{pmatrix}a&b\\0&1\end{pmatrix}\begin{pmatrix}c&d\\0&1\end{pmatrix}=\begin{pmatrix}ac&ad+b\end{pmatrix}
+\end{align*}
+で、これがextを与えるが、コサイクル条件と同じ式が出てくる。
+このようにして群のコホモロジーと、加群の拡大と変形が対応するはず。
+
+\section{Galois表現の変形とSelmer群}
+
+目標。
+Picard schemeとAbel varのmoduliの構成。
+ベクトル束のモジュライ。
+FGA, FGA explained, Mumford, GITなど。
+
+\section{加群や代数の拡大}
+参考文献。EGA$0_{{\rm IV}}$, cotangent complex.
+
+\subsection{Extについて}
+\begin{dfn}
+$A$を可換環、$M, N$を$A$加群とする。$M$の$N$による拡大とは次の$A$加群の完全列$0 \to N \to E \to M \to 0$のことである。
+拡大の同値関係を完全列の間の射で、左右が恒等写像であるようなもので定める。（snake lemmaから真ん中は同型）
+拡大全体の集合を$Ext(M, N)$とかくことにする。
+\end{dfn}
+
+\begin{prop}
+この集合は（何らかの意味で自然な）$A$加群としての構造をもち、
+$M, N$について関手的であって、
+$Ext^1_A(M, N)$と$A$加群の圏から$A$加群の圏への関手として同型になる。
+\end{prop}
+
+まず$N$について$A$加群の圏から集合の件への共変関手となることをみる。
+この関手によって、$N$の$A$加群の構造から$Ext(M, N)$に$A$加群の構造を定めることができる。
+（群構造を射の組とその図式であらわす。群スキームとか）
+関手$N \to Ext(M, N)$を$T(N)$とかくことにする。
+$\phi: N \to N'$にたいして、$T(\phi)$を$E \to E \oplus_N N'$として定める。
+同値関係をたもち、関手となる（射の結合性とか）。
+
+$T(p_1) \times T(p_2):T(L_1 \times L_2) \to T(L_1) \times T(L_2)$は全単射。
+逆向きは$E_1 , E_2$にたいして$E_1 \times_M E_2$とすればよい。
+
+$+:L\times L \to L$, $i: L \to L$, $e:0 \to L$を$T$で写したものとして加群の構造をきめる。
+加法を具体的に書き下すと$E_1, E_2$にたいして$E_1 + E_2 = (E_1 \times_M E_2) \oplus _{L\times L} L$となる。
+単位元は$T(e)(0) = T(e)(0 \to 0\to M \to M\to 0) = 0\to N \to N\oplus M \to M \to 0$
+
+$Ext^1_A(M, N)$との比較。
+射の作り方。（実質的に同じではあるが二通りかく）
+
+一つ目。
+$M$のproj resol$ \to X_2 \to X_1 \to X_0 \to M \to 0$をひとつ固定して考える。（これによらないことは後でしめす）
+あたえられた拡大$E$にたいし、
+$E\to M$が全射なので$X_0$から$E$に射がのびる。
+さらに続けて$X_1$から$N$に射がのびるのでこれを$f_E$とかく。
+（proj resolから完全列にはいつでも射がのびるはず）
+このとき$f_E$はコサイクルになる。つまり$p_2$と合成して$0$になる。
+$F_E$には不定性があるが、コホモロジー類にいくと一意的に決まり、
+$Ext(M, N) \to Ext^1_A(M, N)$という写像が定まる。
+
+二つ目。
+あたえられた拡大$0\to N\to E\to M\to 0$の$Hom_A(M, -)$をとって長完全列を書くと、
+境界準同型$Hom_A(M, M)\to Ext_A^1(M, N)$が定まり、
+その$id_M$の像を対応する$Ext^1$の元と思う。
+（この二つはちゃんと一致しているのか？）
+
+
+逆向きの射は$Ext^1$の元を$Hom(X_1, N)$にもちあげたものを$f$とかく。
+するとこれはコサイクルなので$im(p_1)$をfactorする。
+これをつかって$X_0 \oplus_{im(p_1)} N$で$f$の行き先となる拡大を定義する。
+コバウンダリが自明な拡大に移るか？$(x,y) \to (p_0(x), y+g(x))$とすれば$M\oplus N$への同型がつくれる。
+
+この二つの射が関手としての射になっている。
+つまり$\phi:N \to N'$があったとき、$\phi_*(f_E)=f_{E\oplus_N N'}$となることをいえばよい。
+ここで$\phi_*$は$\phi$により誘導される$Hom(M, N) \to Hom(M, N')$からきまる$Ext^1$の間の射。
+（$Ext^1$や$Hom$の群構造も関手的にきまっているとみなせるので、上の事実から準同型になることがいえる）
+一般の$n$でこのような$Ext^n$の解釈があるか？
+
+\subsection{Exalのこと}
+
+$E$が$A$環、$B$の増大(augmente)、つまり$f: E \to B$ augmentation（全射$A$環準同型付き）とする。
+$I = ker f$とする。もし$I$が$I^2=0$をみたすならば、
+$I$は$E$の部分としての自然な$E$加群の構造があるのに加え、$B$加群の構造をもつ。
+実際、$b\in B$にたいし、$f(x)=b$なる$x\in E$がとれて、$b$の$I$への作用を$x$による作用で定めれば、
+$I^2=0$（$E$の中での積）であるからwell-defined。
+
+逆に$I$が$xz=f(x)z, x\in E, z\in I$なる$B$加群の構造をもつならば、$I^2=0$となる（左辺は自然な積による$E$加群構造）。
+実際、$z, z'\in I$とすれば、$zz'=f(z)z'=0z'=0$となる。
+
+\begin{dfn}
+$A$環$B$の$B$加群$L$による$A$拡大とは、
+$A$加群の完全列$0 \to L \to^j E \to^f B \to 0$であって、$E$は$A$環、$f$は$A$環準同型、$x\in E, z\in L$にたいし$j(f(x)z)=xj(z)$をみたすもの。
+いいかえると、$L$に$f$をつかって$E$-modの構造をあたえたとき、$j$が$E$-mod homになるということ。
+このとき、$j(L)$は二乗すると$0$になる$E$のイデアルとなる。
+拡大の集合を$Exal_A(B, L)$とかく。押し出しによって$L$について共変関手となる。
+\end{dfn}
+
+$D_B(L)$で自明な拡大をあらわす。つまり、加群としては$B\times L$であって積を$(x, s)(y, t)=(xy, sy+xt)$で定めたもの。
+（自然な射影が環準同型になるという条件を課せば、この積に一意に決まる。）
+引き戻しと押し出しとそれらの関手性について。
+
+$0\to L'\to E'\to B'\to 0$という$A$代数の拡大の$B\to B'$という$A$代数の射によるひきもどし。
+まず$A$加群としての引き戻し$E=E'\times_{B'} B$を考える。
+自然な射$E\to E'$と$E\to B$が$A$環準同型になるためには、$E$の$A$環の構造を成分ごとにいれるしかない。
+このとき、$E\to B$は全射で、核は$E'\to B'$の核と一致する。
+したがって$0\to L'\to E\to B\to 0$が$A$環の拡大になるので、これをひきもどしとする。
+（拡大の圏の中で引き戻したりうるのか？）
+
+$w:L\to L'$という$B$加群の射による$0\to L\to^j E\to^f B\to 0$のおしだし。
+$G=D_E(L')=E\times L'$とし、$\theta:L\to G;z\mapsto(j(z), -w(z))$とする。
+このとき$\theta$は$G$加群の射になる。いいかえると像は$G$のイデアルになる。
+ここで$L$の$G$加群としての構造とは、$G\to E$という自然な射によるもの。
+実際、$(x, y)\in G, z\in L$にたいし、$(x, y)(j(z), -w(z))=(xj(z), -xw(z)+yj(z))$というのが$G$の積で,
+$j(z)y=f(j(z))y=0$（拡大の定義）だから、上の式は$=(xj(z), -xw(z))=(j(f(x)z), -w(f(x)z)$となりしめせた。
+したがって、$G/\theta(L)$は加群としての押し出しだが、$A$環の構造ももつ。
+
+
+
+\begin{prop}
+$B\to C$が全射間準同型で$I$がその核、$L$が$C$加群とする。
+$F=B/I^2$とし、$0\to I/I^2\to F \to C\to 0$は$C$の$I/I^2$による拡大。
+$Hom_C(I/I^2, L)$と$Exal_B(C, L)$という$L$について関手的な同型が存在する。
+\end{prop}
+
+\begin{proof}
+
+対応のさせ方。
+$w:I/I^2 \to L$にたいして、$F\oplus_{I/I^2} L$という$C$の$L$による拡大を考える。
+逆に拡大$0 \to L \to E \to C \to0$があったとき、$I \to B \to C$は$0$-mapなので$B\to E$をによって$L$をfactorし、
+$E$の中で$L^2=0$なので$I/I^2$をfactorする。これによって$I/I^2 \to L$を定める。
+
+ちゃんと逆対応になっているか。拡大$0\to L \to E \to C \to 0$があたえられたとき、
+
+\[
+\begin{CD}
+0 @>>> I/I^2 @>>> B/I^2 @>>> C @>>> 0\\
+@.    @VVV    @VVV     @|    \\
+0 @>>> L @>>> E'=L\oplus_{I/I^2}B/I^2 @>>> C @>>> 0\\
+@.    @|       @.     @|    \\
+0 @>>> L @>>> E @>>> C @>>> 0\\
+\end{CD}
+\]
+
+という可換図式がかけ、押し出しの普遍性から真ん中の下に射が伸び、下二列が同値な拡大になる。
+
+逆に$w:I/I^2$があたえられたとき、$B\to F \oplus_{I/I^2}L$から導かれる$I \to L$は、
+$x\in I$にたいし、$x \mapsto (x,0)=(x,0)+(-x, -w(-x))=(0,w(x))$なので$\mod I^2$して$w$と一致する。
+
+\end{proof}
+
+extension$B, C$とその間の射があるとする。
+つまり次の可換図式があるとする。
+\[
+\begin{CD}
+0 @>>> I @>>> B @>>> B_0 @>>> 0\\
+@.    @VuVV    @VVV     @VVf_0V    \\
+0 @>>> J @>>> C @>>> C_0 @>>> 0\\
+\end{CD}
+\]
+これにたいし、$C$を$f_0$でひきもどすと、
+\[
+\begin{CD}
+0 @>>> I @>>> B @>>> B_0 @>>> 0\\
+@.    @VuVV    @VVV     @|    \\
+0 @>>> J @>>> C\times_{C_0}B_0 @>>> B_0 @>>> 0\\
+@.    @|       @VVV     @VVf_0V    \\
+0 @>>> J @>>> C @>>> C_0 @>>> 0\\
+\end{CD}
+\]
+という可換図式ができる。ここで真ん中の縦の射は最初のもとの縦の射と一致する。
+
+言い換えると、$f_0$による引き戻しによって定まる$Exal(C_0, J)\to Exal(B_0, J)$という射があって、
+$C$をひきもどしてから$Exal(B_0, J) \cong Hom(I, J)$にうつると$u$になる。
+
+\subsection{ExtとExalの比較}
+
+$B\to C$が全射環準同型で核が$I$、$L$が$C$加群という状況で$Ext_B(C, L)$と$Exal_B(C, L)$を比較する。
+ここで$L$の$B$加群の構造は$B\to C$であたえられたものを考える。
+
+安直に考えて、代数の拡大を代数の構造を忘れて加群の拡大と思う射$Exal_B(C, L)\to Ext_B(C, L)$が存在する。
+
+もう一つの作り方。$0 \to I/I^2 \to B/I^2 \to C \to0$という$B$-modの完全列の$Hom_B(-,L)$をとると、
+$Hom_B(B/I^2, L)\to Hom_B(I/I^2, L) \to Ext_B^1(C, L)$という完全列ができる。
+ここで最初の射は$0$射になっている。なぜかというと、$f: B/I^2 \to L$をとったとき、$x\in I$とすると$f(x)=xf(1)=0f(x)=0$なので。
+（$L$の$B$加群の構造は$B\to C$であたえられたもの。）
+したがって$Hom_B(I/I^2, L) \to Ext_B^1(C, L)$は単射になる。
+$Hom_B(I/I^2, L)=Hom_C(I/I^2, L)$なので、
+（$b\in B \mapsto c\in C$なるものをかってにとると、
+$x \in I/I^2$なら$bx=cx$であり、$y\in L$なら$by=cy$というのが$B$および$C$加群の構造のいれかたで、
+$f$が$B$-homとは$f(bx)=bf(x)$、$C$-homとは$f(cx)=cf(x)$となることだから、この二つは同値。）
+上でしめしたことから$Exal_B(C, L)\to Ext_B(C, L)$という単射ができた。
+
+この二つがちゃんと一致するか？
+
+\subsection{ケーラー微分と拡大の関係について}
+\begin{dfn}
+$B$を$A$-algとする。ケーラー微分を$\Omega^1_{B/A} = I/I^2$で定義する。
+ここで$I$は積から決まる写像$B\otimes_A B \to B$（これは全射）の核。
+$P^n_{B/A} = B\otimes_A B/I^{n+1}$と定義する。
+$0 \to \Omega^1_{B/A} \to P^1_{A/B} \to B \to 0$は完全。
+$j_2:B \to P^1_{B/A}$を$x \to x+dx$で定める。
+\end{dfn}
+
+
+\begin{prop}
+$Exal_A(C, I)$と$Ext^1_C(\Omega^1_{C/A}, I)$には（関手的な）同型がある。
+
+$X = (0 \to I \to B \to C \to 0) \in Exal_A(C, I)$にたいし、
+${\rm diff}(X) = (0 \to I \to \Omega^1_{B/A}\otimes_B C \to \Omega^1_{C/A} \to 0) \in Ext^1_C(\Omega^1_{C/A}, I)$。
+
+$Y = (0 \to I \to J \to \Omega^1_{C/A} \to 0) \in Ext^1_C(\Omega^1_{C/A}, I)$にたいし、
+$Y' = (0 \to I \to J\oplus C \to \Omega^1_{C/A}\oplus C \to 0)$とし、${\rm alg}(Y) = (Y'*j_2) \in Exal_A(C, I)$。
+（$C\to \Omega^1_{C/A}$による引き戻し？）
+
+これが同型をあたえる。
+\end{prop}
+
+
+\section{infinitesimal deformation}
+
+参考文献。cotangent complex, Gabbar-Lamero, SGA1など。
+
+問題設定。$A$-algの拡大$0\to I\to B \to B_0$と射$u:I \to J, f_0:B_0 \to C_0$があたえられたとする。
+このとき拡大$C$と拡大の間の射$B \to C$であって、$u, f_0$をのばしたものが存在するか？
+
+
+この問題をcotangent complexのtransitivityから$\mathbb{E}xt$の長完全列をかくと、次のような完全列ができる。
+\[
+0 \to Exal_{B_0}(C_0, J) \to Exal_{B}(C_0, J) \to Hom_{B_0}(I, J) \to \mathbb{E}xt^2_{C_0}(L_{C_0/B_0}, J)
+\]
+これと、変形問題の対応。一番左が変形問題の解の集合、真ん中が問題の条件$u$の集合、右が障害をあらわす。
+たとえば$u$が右に行って$0$なら、その変形問題には解があるということになる。
+
+$\mathbb{E}xt$の計算が必要。
+上の完全列を得るために、次のような事実を使っている。
+
+\begin{itemize}
+\item $\mathbb{E}xt^0_{C_0}(L_{B_0/B}\otimes_{B_0} C_0, J) = 0$
+\item $\mathbb{E}xt^1_{C_0}(L_{C_0/B_0}, J) \cong Exal_{B_0}(C_0, J)$
+\item $\mathbb{E}xt^1_{C_0}(L_{C_0/B}, J) \cong Exal_{B_0}(C, J)$
+\item 上の同型の関手性
+\item $\mathbb{E}xt^1_{C_0}(L_{B_0/B}\otimes_{B_0} C_0, J) = Hom_{B_0}(I, J)$
+\end{itemize}
+
+$C$を圏、$\Delta$を空でない有限全順序集合のなす圏とする。射は順序をたもつもの。
+$d^i_n: [0, n-1]\to[0,n]$を$i$番目をとばす写像、$s^i_n:[0,n]\to[0,n-1]$をiばんめを繰り返す写像とする。
+$C$の単体的対象とは$\Delta^\circ$から$C$への関手のこと。
+単体的対象$X$にたいし、$X_n=X([0,n]), d_i=X(d^i_n)$と略記する。（$X$は反変であることに注意。）
+$Simple(C)$を$C$の単体的対象のなす圏とする。
+$X\in C$に対し定数関手を$X$とか$K(X,0)$とかく。（eilenberg-maclane空間と関係あり？）
+
+hyperextの定義とextとの比較。
+まず$\sigma$を定義する。
+$\mathbb{E}xt^p_A(E, F)= \varinjlim_{n\geq -p}Hom_{D_\cdot(A)}(\sigma^nE, \sigma^{n+p}F)$と定義する。
+ここで、$E, F\in D_\cdot(A)$。
+$D_\cdot(A)$は$A$-modのderived category、つまり、$Hot_\cdot(A)$をquasi-isomで局所化した圏。
+$\gamma, \sigma$というsimplicial $\mathbb{Z}$-modを定義する。
+$0 \to \mathbb{Z} \to \gamma \to \sigma \to 0$という完全列がある。（どこの圏で？）
+$\Delta(n)$は$[n]\in ob \Delta$であらわされるsimplicial set。
+$d_0. d_1: \Delta(0)\to\Delta(1)$
+
+\begin{dfn}
+$T$をtoposとして$A \to B$を$T$の射とする。
+cotangent complexとはsimplicial $B$-mod $L_{B/A}=\Omega^1_{P/A}\otimes_P B$のこと。
+ここで$P$は$A \to B$のsimplicial resolutionで、$\Omega^1_{P/A}$はsimplicial $P$?-modであり、
+$n$にたいし、$\Omega^1_{P_n/A}$をあたえるもの。
+simplicial moduleのテンソルとは？
+\end{dfn}
+
+simplicial resolutionとは。$A\to B$という環の射があったとき、このsimpl. resol. $P=P_A(B)$とは、
+$P_0 = A[B], P_n=A[P_{n-1}]$なるsimplicial objectのこと。
+augmentation map $P \to B$が$A[B] \to B$という自然な射からさだまる。
+ここで$B$というのはsimplicial objectとしては$B$という定数関手だとおもっている。
+
+augmentation mapからきまる射$L_{B/A} \to \Omega^1_{B/A}$があって、
+このホモロジーをとると$H_0(L_{B/A}) \to \Omega^1_{B/A}$が同型になる。
+
+simplicial objectとcomplexの関係について？
+chain complexみたいな感じで複体をつくれるはず。
+
+
+\begin{prop}
+$A\to B\to C$にたいし、$L_{B/A}\otimes_B C \to L_{C/A} \to L_{C/B}$は$D_\cdot(C)$のdistinguished triangleになる。
+\end{prop}
+
+これのhyperextの長完全列を書くことができる。
+
+\section{Hilbert scheme}
+Hilbert schemの構成。
+
+Projectve bundleの関手性を復習して、Grassmanの構成を確認
+
+たとえば$E$を$S$上のvector bundleとして$P(E)\to S$を考える。
+これは$E$のquotient line bundleのmoduliになっている。universal objectは$O(1)$である。
+対応は$f\mapsto f^*O(1)$であたえられる。逆は$T\to P(L)\to P(E_T)$
+
+たとえば$P^n_S$上の層の全射$O^{n+1}\to O(1)$を$e_i\mapsto x_i$で定義する。
+$X\to S$上のinv sheaf $F$と全射$O_X^{n+1}\to F$があたえられたとき、
+
+rank $r$のsubを分類するものがGrassmanで、$\wedge^rE$をとることでprojとむすびつく。
+
+subではなく、quotのmoduliと考える。
+
+Hilbert polynomialについて復習。
+
+Hilbert schemeをGrassmanのsubとしてとらえる。
+
+flattening stratification
+例。$S$をschemeとし、$F$を$S$上のcoherent sheafとする。
+このとき、$n$にたいし次をみたす$S$のlocally closed $S_p$が存在。
+$Z\to S$で$F$を引き戻すとflatでrankが$n$となることと$Z$が$S_n$をfactorすることが同値。
+実際$\{s\in S, \dim F_s=n\}$はlocally closedで、flatならlocally freeである。
+
+これのrelative versionをやる。Grothendieck, Mumford
+
+Projective space上のcoh sheafのcohomologyを計算する。
+
+\section{Picard scheme}
+Hilbert schemeと対応させる。
+
+\section{moduli of abelian varieties}
+linearly rigidified abelian schemeのmoduliを考えて、Hilbのsubとして実現する。
+PGLでわる。
+
+\section{stable sheafのmoduli}
+Huybrecht-Lehrの本。
+
+準備。$E$を$X$上の連接層とする。
+\begin{itemize}
+\item $\dim E=\dim supp E$
+\item $E$がpure of dim dとは任意の非自明な$F\subset E$で連接層が$\dim F=d$となること。
+\item $E$のtorsion filtrationとは$0\subset T_0(E)\subset\cdots\subset T_d(E)=E$であって$T_i(E)$が$\dim \leq i$なる最大部分層。
+\item $E$がreflexiveとは
+\end{itemize}
+
+$L$を直線束とする。$s\in H^0(X, L)$が$E$-regularとは$s:E\otimes L^{\vee}\to E\otimes O_X=E$が単射であることをいう。
+
+$X$を射影的とする。ample line bundle $O(1)$を固定する。
+連接層$E$のHilbert polynomialとは$P(E)(m)=\chi(E\otimes O(m))$なる多項式のことを言う。
+$P(E)(m)=\sum\alpha_i(E)m^i/i!$とかくとき、$E$のmultiplicityを$\alpha_{\dim E}(E)$で定める。$E$のrankを$\alpha_d(E)/\alpha_d(O_X)$で定める。
+$E$がsemi-stableとは$E$がpureでその非自明部分$F$が$p(F)\leq p(E)$をみたすことをいう。
+
+$E$がstableなら$End(E)$は有限次元division algebraである。
+$d=\dim E$とする。
+$deg(E)=\alpha_{d-1}(E)-rk(E)\alpha_{d-1}(O_X)$とし$\mu(E)=deg(E)/rk(E)$で定義する。
+
+$F$が$m$-regularとは任意の$i$にたいし$H^i(X, F(m-i))=0$なることをいう。
+このとき次が成り立つ。
+\begin{enumerate}
+\item 任意の$m'\geq m$にたいし$m'$-regular
+\item $F(m)$はglobally generated
+\item $H^0(E(m))\otimes H^0(O(m))\to H^0(F(m+n))$は全射
+\end{enumerate}
+
+Mumford-Castelnuove regularityとは$reg(F)=\inf\{m\in\mathbb{Z}, F m-reg\}$のことをいう。
+
+$X$上の連接層の族$\{F_i\}_{\{i\in I\}}$がboundedとはある$k$上有限型な$S$と連接$O_{S\times X}$加群$F$が存在して$\{F_i\}\subset\{F_{s\times X} s\in S\}$となること。
+
+補題。$\{F_i\}$がboundedでることは次のいずれかと同値。
+\begin{itemize}
+\item $\{P(F_i)\}$が有限である$\rho$が存在して$reg(F_i)\leq \rho$なること。
+\item $\{P(F_i)\}$が有限である連接層$F$が存在して$F\to F_i$が全射なること。
+\end{itemize}
+
+flattening startification
+$f:X\to S$をnoether schemeの間のprojective morphismとし$F$を連接$O_X$加群とする。
+このとき$\{P(F_s), s\in S\}$は有限集合で、ある有限の局所閉集合$S_p\subset S$であって$P\in\{P(F_s)\}$であり、
+\begin{itemize}
+\item $\coprod S_P\to S$は全単射
+\item $g:S'\to S$がnoetherの間の射で$g_X^*F$が$S'$上flatであることと$g$が$j$をfactorすることが同値。
+\end{itemize}
+
+Quot scheme
+$V$をベクトル空間とする。
+$Grass(V,r)$を$S\mapsto \{K\subset O_S\otimes V, F=O_S\otimes V/K {\rm is loc free}\}$でさだまる関手とする。
+これの表現可能性をしめす。
+部分空間$W\subset V$にたいして、$G_W=\{ K\subset O_S\otimes V, O_S\otimes W\to O_S\otimes V \to F {\rm is isom}\}$で定まる関手とすると、
+これは$G_W\subset Hom(V, W)$で表現可能。
+$G_W=\{\phi: V\to W {\rm splits} W\to V\}$でこれはaffine部分集合。
+これは適当にブロックわけした行列でかけばわかる。
+
+\section{Lectures on torsion-free sheaves and their moduli by A. Langer}
+$X$をなめらか射影的複素多様体とする。その上のベクトル束の分類。
+位相的不変量。ランクとチャーン類。
+\end{document}
